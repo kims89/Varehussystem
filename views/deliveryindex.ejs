@@ -1,0 +1,114 @@
+<html>
+
+<head>
+  <% include head %>
+    <title>
+      VAREHUSET
+    </title>
+</head>
+
+<body>
+  <% include deliverymeny %>
+    <div class="ui main container">
+      <div id="prodlist">
+        <h3 class="ui block header">
+          Utleverte varer
+        </h3>
+        <div class="ui icon input">
+          <input class="search " placeholder="Søk" />
+          <i class="search icon"></i>
+        </div>
+        <table class="ui stackable celled red table">
+          <thead>
+            <tr>
+              <th>
+                <a class="sort" data-sort="date">Dato</a>
+              </th>
+              <th>
+                <a class="sort" href="#" data-sort="productname">Produktnavn</a>
+              </th>
+              <th>
+                <a>Antall</a>
+              </th>
+              <th>
+                <a class="sort" href="#" data-sort="owner">Utlevert til</a>
+              </th>
+              <th>
+                <a class="sort" href="#" data-sort="serienumber">Serienummer</a>
+              </th>
+              <th>
+                <a class="sort" href="#" data-sort="statusDelivery">Status</a>
+              </th>
+              <th>
+                <i class="Block Layout icon"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="list">
+            <% for (var i = 0; i < result.length; i++) { %>
+              <tr id="<%= result[i]._id %>">
+                <td class="date">
+                  <%= result[i].date %>
+                </td>
+                <td class="productname">
+                  <%= result[i].productname %>
+                </td>
+                <td class="number">
+                  <%= result[i].number %>
+                </td>
+                <td class="owner">
+                  <%= result[i].owner %>
+                </td>
+                <td class="serienumber">
+                  <%= result[i].serienumber %>
+                </td>
+                <td class="statusDelivery">
+
+                    <% if (result[i].statusDelivery == "Ikke startet") { %>
+                    <i class="envelope red icon"></i>
+                    Ikke startet enda
+                      <% } else if (result[i].statusDelivery == "Klar til sending") { %>
+                      <i class="archive yellow icon"></i>
+                      Klar for sending
+                        <% } else { %>
+                        <i class="envelope open icon green icon"></i>
+                        Levert
+                          <% } %>
+                </td>
+                <td>
+
+                  <div class="ui icon fluid buttons">
+                    <button href="#" onclick='funcModalDelete("<%= result[i]._id %>");' class="negative ui button">
+                      <i class="remove icon"></i>
+                    </button>
+                    <button href="#" onclick='funcModalEdit("<%= result[i]._id %>");' class="positive ui button">
+                      <i class="suitcase icon"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+        <ul class="pagination"></ul>
+      </div>
+    </div>
+    <div>
+    </div>
+    <% include deletedeliverymodal %>
+    <% include editdeliverymodal %>
+      <script>
+      
+        var options = {
+          valueNames: ['number', 'productname','owner','statusDelivery', 'serienumber'],
+          page: 20,
+          pagination: true
+        };
+
+        var prodList = new List('prodlist', options);
+      </script>
+
+
+</body>
+
+</html>

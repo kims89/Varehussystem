@@ -1,0 +1,114 @@
+<html>
+
+<head>
+  <% include head %>
+    <title>
+      Sporing
+    </title>
+</head>
+
+<body>
+  <div class="ui container">
+    <div class="ui segment two column centered">
+      <h2 class="ui header">
+        <i class="globe icon"></i>
+        <div class="content">
+          Sporing av leveransen
+        </div>
+      </h2>
+      </br>
+      <div class="ui horizontal divider">
+        Informasjon
+      </div>
+      <div class="ui top green attached segment">
+        <p>Produktnavn:
+          <%= result[0].productname %>
+        </p>
+      </div>
+      <div class="ui attached segment">
+        <p>Eier:
+          <%= result[0].owner %>
+        </p>
+      </div>
+      <div class="ui attached segment">
+        <p>Startdato:
+          <%= result[0].date %>
+        </p>
+      </div>
+      <div class="ui bottom attached segment">
+        <p>Antall varer:
+          <%= result[0].number %>
+        </p>
+      </div>
+      </br>
+      <div class="ui horizontal divider">
+        Steg
+      </div>
+
+      <div class="ui three steps">
+        <% if(result[0].statusDelivery == "Ikke startet"){ %>
+          <div class="active step">
+            <i class="envelope red icon"></i>
+            <div class="content">
+              <div class="title">Ikke sendt fra lageret enda</div>
+            </div>
+          </div>
+          <div class="disabled step">
+            <i class="archive icon"></i>
+            <div class="content">
+              <div class="title">Klar for sending</div>
+            </div>
+          </div>
+          <div class="disabled step">
+            <i class="envelope open icon"></i>
+            <div class="content">
+              <div class="title">Levert</div>
+            </div>
+          </div>
+          <% } else if (result[0].statusDelivery == "Klar til sending") { %>
+          <div class="step">
+          <i class="envelope green icon"></i>
+          <div class="content">
+          <div class="title">Ikke sendt fra lageret enda</div>
+          </div>
+        </div>
+        <div class="active step">
+          <i class="archive orange icon"></i>
+          <div class="content">
+            <div class="title">Klar for sending</div>
+          </div>
+        </div>
+        <div class="disabled step">
+          <i class="envelope open icon icon"></i>
+          <div class="content">
+            <div class="title">Levert</div>
+          </div>
+        </div>
+            <% } else { %>
+            <div class="step">
+          <i class="envelope green icon"></i>
+          <div class="content">
+          <div class="title">Ikke sendt fra lageret enda</div>
+          </div>
+        </div>
+        <div class="step">
+          <i class="payment green icon"></i>
+          <div class="content">
+            <div class="title">Klar for sending</div>
+          </div>
+        </div>
+        <div class="active step">
+          <i class="envelope open green icon icon"></i>
+          <div class="content">
+            <div class="title">Levert</div>
+          </div>
+        </div>
+
+              <% } %>
+      </div>
+      </br>
+    </div>
+  </div>
+</body>
+
+</html>

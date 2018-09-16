@@ -1,0 +1,38 @@
+{
+  "name": "inivarehus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kims89/iniVarehus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kims89/iniVarehus/issues"
+  },
+  "homepage": "https://github.com/kims89/iniVarehus#readme",
+  "dependencies": {
+    "basicauth-middleware": "^3.1.0",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "get-json": "^1.0.0",
+    "helmet": "^3.13.0",
+    "moment": "^2.22.0",
+    "mongodb": "^2.2.36",
+    "nodemailer": "^4.6.8",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}

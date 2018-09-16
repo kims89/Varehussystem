@@ -1,0 +1,64 @@
+<div id="modalNew" class="ui mini modal">
+    <div class="ui icon header">
+        <i class="Plus green icon"></i>
+        Legg til varehus
+    </div>
+    <div class="content">
+        <div class="ui form">
+            <div class="field">
+                <label>Navn</label>
+                <input id="navnNewInput" type="text">
+            </div>
+
+            <div class="field">
+                <label>Adresse</label>
+                <input id="adresseNewInput" type="text">
+            </div>
+
+        </div>
+
+    </div>
+    <div class="actions">
+        <div class="ui black basic cancel button">
+            <i class="remove icon"></i>
+            Avbryt
+        </div>
+        <div class="ui green ok button">
+            <i class="checkmark icon"></i>
+            Lagre
+        </div>
+    </div>
+</div>
+<script>
+    $('#modalNew').modal({
+        onHidden: function () {
+            $("#navnNewInput").val("");
+            $("#adresseNewInput").val("");
+        },
+        onApprove: function () {
+            var names = $("#navnNewInput").val();
+            var adresse = $("#adresseNewInput").val();
+            $.post("/api/addwarehouse", {
+                    name: $("#navnNewInput").val().replace(/[&\/\\#,+()$~%"':*?<>{}]/g,''),
+                    adresses: $("#adresseNewInput").val().replace(/[&\/\\#,+()$~%"':*?<>{}]/g,'')
+                },
+                function (data, status) {
+                    console.log(data);
+                    $("#mainlist").append(
+                        '<div class="item"><div class="ui icon right floated buttons"><a class="ui grey label" onclick="location.reload();" >Last siden på nytt for å redigere</a></div>' +
+                        '<i class="Industry icon"></i>' +
+                        '<div class="content">' +
+                        '<a class="header" href="/warehouse/' + data + '">' + names + '</a>' +
+                        '<div class="description">' + adresse + '</div>' +
+                        '</div>' +
+                        '</div>');
+                    $("#messages").html('<div class="ui olive message">Nytt varelager lagt til</div>');
+                });
+        }
+    });
+
+    function funcModalNew() {
+        $('#modalNew')
+            .modal('show');
+    }
+</script>

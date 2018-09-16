@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <% include head %>
+        <title>
+            Varelager
+        </title>
+</head>
+
+<body>
+    <div class="ui main text container">
+        <% include warehousemenu %>
+            <div class="ui segment">
+                <div id="messages">
+
+                </div>
+                <div id="mainlist" class="ui list">
+
+                    <% for (var i = 0; i < result.length; i++) { %>
+                        <div class="item" id="<%= result[i]._id %>">
+                            <div class="ui icon right floated buttons">
+                                <button href="#" onclick='funcModalEdit("<%= result[i]._id %>","<%= result[i].warehouseid %>");' class="ui button">
+                                    <i class="Edit icon"></i>
+                                </button>
+                                <button href="#" onclick='funcModalDelete("<%= result[i]._id %>");' class="negative ui button">
+                                    <i class="remove icon"></i>
+                                </button>
+                            </div>
+                            <i class="Industry icon"></i>
+
+                            <div class="content">
+                                <a class="header" id="name-<%= result[i]._id %>" href="/warehouse/<%= result[i]._id %>">
+                                    <%= result[i].name %>
+                                </a>
+                                <div class="description" id="adresses-<%= result[i]._id %>">
+                                    <%= result[i].adresses %>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <% } %>
+                </div>
+            </div>
+    </div>
+    <% include deletewarehousemodal%>
+        <% include newwarehousemodal %>
+            <% include editwarehousemodal %>
+</body>

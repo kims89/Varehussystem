@@ -1,0 +1,149 @@
+<html>
+
+<head>
+  <% include head %>
+    <title>
+      VAREHUSET
+    </title>
+</head>
+
+<body>
+  <% include productmeny %>
+    <div class="ui main container">
+      <div class="five ui buttons">
+        <button class="ui primary button" onclick='funcModalNew("<%= warehouseid %>");'>
+          Legg til nytt produkt
+        </button>
+        <a href="/api/getalldeliverys/<%= warehouseid %>" class="ui secondary basic button">Vis alle saker</a>
+      </div>
+      <br>
+      <br>
+      <div id="prodlist">
+        <div class="ui icon input">
+          <input class="search " placeholder="Søk" />
+          <i class="search icon"></i>
+        </div>
+        <table class="ui stackable blue celled table">
+          <thead>
+            <tr>
+              <th>
+                <a class="sort" href="#" data-sort="name">Vare</a>
+              </th>
+              <th>
+                <a>Antall</a>
+              </th>
+              <th>
+                <a class="sort" href="#" data-sort="productnumber">Produktnummer</a>
+              </th>
+              <th>
+                <i class="Block Layout icon"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="list">
+            <% for (var i = 0; i < result.length; i++) { %>
+              <tr id="<%= result[i]._id %>">
+                <% if(result[i].number == 0){ %>
+                  <td class="name negative">
+                    <a href="/api/getdelivery/<%= result[i]._id %>">
+                      <%= result[i].productname %>
+                    </a>
+                  </td>
+                  <td class="number negative">
+                    <%= result[i].number %>
+                  </td>
+                  <td class="productnumber negative">
+                    <%= result[i].productnumber %>
+                  </td>
+                  <td>
+
+                        <div class="ui icon fluid buttons">
+                          <button href="#" onclick='funcModalNewDelivery("<%= result[i]._id %>", "<%= result[i].productname %>", <%= result[i].number %>);'
+                            class="positive ui disabled button">
+                            <i class="Add To Cart icon"></i>
+                          </button>
+                  <% } else{ %>
+                    <td class="name">
+                      <a data-tooltip="Trykk for å se alle utleveringer av dette produktet" href="/api/getdelivery/<%= result[i]._id %>">
+                        <%= result[i].productname %>
+                      </a>
+                    </td>
+                    <td id="numbers<%= result[i]._id %>" class="number">
+                      <%= result[i].number %>
+                    </td>
+                    <td class="productnumber">
+                      <%= result[i].productnumber %>
+                    </td>
+                    <td>
+
+                        <div class="ui icon fluid buttons">
+                          <button href="#" onclick='funcModalNewDelivery("<%= result[i]._id %>", "<%= result[i].productname %>", <%= result[i].number %>);'
+                            class="positive ui button">
+                            <i class="Add To Cart icon"></i>
+                          </button>
+                    <% } %>
+
+                          <button href="#" onclick='funcModalEdit("<%= result[i]._id %>","<%= result[i].warehouseid %>");' class="ui button">
+                            <i class="Edit icon"></i>
+                          </button>
+                          <button href="#" onclick='funcModalDelete("<%= result[i]._id %>");' class="negative ui button">
+                            <i class="remove icon"></i>
+                          </button>
+                        </div>
+                      </td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+        <ul class="pagination"></ul>
+      </div>
+    </div>
+    <div>
+    </div>
+    <% include deleteproductmodal %>
+      <% include editproductmodal %>
+        <% include newproductmodal %>
+          <% include newdeliverymodal %>
+            <script>
+              function isInt(value) {
+                return !isNaN(value) && (function (x) {
+                  return (x | 0) === x;
+                })(parseFloat(value))
+              }
+              var options = {
+                valueNames: ['name', 'productnumber'],
+                page: 20,
+                pagination: true
+              };
+
+              var prodList = new List('prodlist', options);
+
+
+              $('.ui.search')
+                .search({
+                  apiSettings: {
+                    url: '/api/productsearchonline/{query}'
+                  },
+                  fields: {
+                    results: "result",
+                    title: 'name'
+
+                  },
+                  onSelect: function (Results) {
+                    $(".productnames").val(Results.name);
+                    $("#searchNewinput").val(" ");
+                    $(".productnameset").addClass("disabled");
+
+
+                  },
+                  maxResults: 6,
+                  cache: true,
+                  selectFirstResult: true,
+                  minCharacters: 3
+                });
+            </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<div id="modalNewDelivery" class="ui mini modal">
+    <div class="ui icon header">
+        <i class="Add To Cart  green icon"></i>
+        Utlevering av vare
+    </div>
+    <div class="content">
+        <div class="ui form">
+            <div class="field">
+                <label>Utlevert til</label>
+                <input type="hidden" id="currentproductid" type="text">
+                <input type="hidden" id="currentproductname" type="text">
+                <input type="hidden" id="currentnumbers" type="text">
+                <input class="productnames" id="ownerid" type="text">
+            </div>
+
+            <div class="field">
+                <label>Serienummer</label>
+                <input id="serialnumberInput" type="text">
+            </div>
+            <div class="field">
+                <label>Status</label>
+                <select class="ui dropdown" id="statusInput">
+                    <option value="0">Ikke startet</option>
+                    <option value="1">Klar til sending</option>
+                    <option value="2">Utlevert</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Antall</label>
+                <input id="numberUpdateInput" type="text">
+            </div>
+            <% if(emailnotification == true){ %>
+            <div class="field">
+                <label>Epostadresse</label>
+                <input id="mailInput" type="text">
+            </div>
+            <div class="ui checkbox">
+                <input id="checkboxMail" name="checkboxMail" type="checkbox">
+                <label>Send bekreftelse + sporing til kunden </label>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black basic cancel button">
+            <i class="remove icon"></i>
+            Avbryt
+        </div>
+        <div id="saveYesNew" class="ui green ok button">
+            <i class="checkmark icon"></i>
+            Lagre
+        </div>
+    </div>
+</div>
+<script>
+    $('#modalNewDelivery').modal({
+        onHidden: function () {
+            console.log($("#checkboxMail").prop('checked'));
+            $("#currentproductname").val("");
+            $("#ownerid").val("");
+            $("#mailInput").val("");
+            $("#serialnumberInput").val("");
+            $("#statusInput").val("");
+            $("#numberUpdateInput").val("");
+        },
+        onApprove: function () {
+            var num = $("#currentnumbers").val() - $("#numberUpdateInput").val();
+            if (num > -1) {
+                if (isInt($("#numberUpdateInput").val()) == true) {
+                    $.post("/api/adddelivery/", {
+                            productid: $("#currentproductid").val(),
+                            productname: $("#currentproductname").val().replace(/[&\/\\#,+()$~%"':*?<>{}]/g,''),
+                            warehouseid: $("#currentwarehouseid").val(),
+                            owner: $("#ownerid").val(),
+                            serienumber: $("#serialnumberInput").val().replace(/[&\/\\#,+()$~%"':*?<>{}]/g,''),
+                            statusDelivery: $("#statusInput option:selected").text(),
+                            number: $("#numberUpdateInput").val().replace(/[^0-9]/g,'_'),
+                            emailCheck: $("#checkboxMail").prop('checked'),
+                            emailAdresse: $("#mailInput").val()
+                        },
+                        function (data, status) {
+                            var id = $("#currentproductid").val();
+                            var oldnumber = $("#numbers" + id).val();
+
+
+                            $.post("/api/updatenumberproducts/" + id, {
+                                    number: num
+                                },
+                                function (data, status) {
+                                    location.reload();
+                                });
+                        });
+                } else  {
+                    alert("Du tastet ikke gyldig antall");
+                }
+
+            } else {
+                alert("Du tastet større antall enn mulig");
+            }
+        }
+    });
+
+    function funcModalNewDelivery(id, name, numbers) {
+        console.log("id"+id);
+        $('#modalNewDelivery')
+            .modal('show');
+        $("#currentproductid").val(id);
+        $("#currentproductname").val(name);
+        $("#currentnumbers").val(numbers);
+    }
+</script>

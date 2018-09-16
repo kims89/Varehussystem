@@ -1,0 +1,31 @@
+<div id="modalDelete" class="ui mini modal">
+    <div class="ui icon header">
+        <i class="trash icon"></i>
+        Slette vare
+    </div>
+    <div class="content">
+        <p>Vil du virkelig fjerne varen fra databasen? Hvis du fjerner varen helt fra databasen vil det ikke være mulig å gjenfinne
+            denne igjen.</p>
+    </div>
+    <div class="actions">
+        <div class="ui black basic cancel button">
+            <i class="remove icon"></i>
+            Nei
+        </div>
+        <div id="DeleteYes" class="ui red ok button">
+            <i class="checkmark icon"></i>
+            Ja
+        </div>
+    </div>
+</div>
+<script>
+    function funcModalDelete(id) {
+        $('#modalDelete').modal({
+            onApprove: function () {
+                $.post("/api/deleteproducts/" + id, function (data, status) {
+                    $('#' + id).remove();
+                });
+            }
+        }).modal('show');
+    }
+</script>

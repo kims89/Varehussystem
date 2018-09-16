@@ -1,0 +1,67 @@
+<div id="modalEdit" class="ui mini modal">
+    <div class="ui icon header">
+        <i class="Edit icon"></i>
+        Endre varehus
+    </div>
+    <div class="content">
+        <div class="ui form">
+            <div class="field">
+                <label>Navn</label>
+                <input type="hidden" id="warehouseEditId" type="text">
+                <input id="navnEditInput" type="text">
+            </div>
+
+            <div class="field">
+                <label>Adresse</label>
+                <input id="adresseEditInput" type="text">
+            </div>
+
+        </div>
+
+    </div>
+    <div class="actions">
+        <div class="ui black basic cancel button">
+            <i class="remove icon"></i>
+            Avbryt
+        </div>
+        <div id="saveYesEdit" class="ui green ok button">
+            <i class="checkmark icon"></i>
+            Lagre
+        </div>
+    </div>
+</div>
+<script>
+    $('#modalEdit')
+        .modal({
+            onHidden: function () {
+                $("#navnEditInput").val("");
+                $("#adresseEditInput").val("");
+                $("#warehouseEditId").val("");
+            },
+            onApprove: function () {
+                var id = $("#warehouseEditId").val();
+                var name = $("#navnEditInput").val().replace(/[&\/\\#,+()$~%"':*?<>{}]/g,'');
+                var adresses = $("#adresseEditInput").val().replace(/[&\/\\#,+()$~%"':*?<>{}]/g,'');
+                $.post("/api/editwarehouse/" + id, {
+                        name: name,
+                        adresses: adresses,
+                    },
+                    function (data, status) {
+                        $("#name-" + id).load("/ #name-" + id);
+                        $("#adresses-" + id).load("/ #adresses-" + id)
+                        $("#messages").html('<div class="ui olive message">Varelager ' + name + ' (' + id +
+                            ') er nå endret</div>');
+                    });
+            }
+        });
+
+    function funcModalEdit(id) {
+        $.getJSON("/api/getwarehouse/" + id, function (result) {
+            $("#navnEditInput").val(result[0].name);
+            $("#adresseEditInput").val(result[0].adresses);
+            $("#warehouseEditId").val(result[0]._id);
+            $('#modalEdit')
+                .modal('show');
+        });
+    }
+</script>

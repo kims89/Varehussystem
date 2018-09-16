@@ -1,0 +1,70 @@
+<script>
+    new ClipboardJS('#copybutton');
+</script>
+<div id="modalEdit" class="ui mini modal">
+    <div class="ui icon header">
+        <i class="suitcase icon"></i>
+        Status
+    </div>
+
+    <div class="content">
+        <p>Legg inn nåværende status på sak</p>
+        <div class="ui ">
+            <div class="column">
+                <div class="ui fluid vertical steps actions">
+                    <a class="step ok" onclick='addStatus("Ikke startet");'>
+                        <i class="envelope red icon"></i>
+                        <div class="content">
+                            <div class="title">Ikke startet</div>
+                            <div class="description">Saken er ikke påbegynt.</div>
+                        </div>
+                    </a>
+                    <a class="step ok" onclick='addStatus("Klar til sending");'>
+                        <i class="archive yellow icon"></i>
+                        <div class="content">
+                            <div class="title">Klar til sending</div>
+                            <div class="description">Varen er klar til sending.</div>
+                        </div>
+                    </a>
+                    <a class="step ok" onclick='addStatus("Levert");'>
+                        <i class="envelope open icon green icon"></i>
+                        <div class="content">
+                            <div class="title">Levert</div>
+                            <div class="description">Kunden har mottat varen.</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <p>Sporingsside for kunder</p>
+        <div class="ui action input">
+            <input id="url" value="" type="text">
+            <button id="copybutton" class="ui teal right labeled icon button" data-clipboard-target="#url">
+                <i class="copy icon"></i>
+                kopier
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    var idTemp;
+
+    function funcModalEdit(id) {
+        idTemp = id
+        $('#modalEdit').modal({}).modal('show');
+        $("#url").val(location.protocol + "//" + document.domain + "/track/" + id);
+        console.log(id);
+    }
+
+    function addStatus(status) {
+        $.post("/api/setstatusdelivery/" + idTemp, {
+                statusDelivery: status
+            },
+            function (data, status) {
+                location.reload();
+            });
+    }
+</script>
