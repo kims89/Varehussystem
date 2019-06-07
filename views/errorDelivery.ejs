@@ -11,14 +11,25 @@
 <body>
     <div class="ui main text container">
     </br>
-        <div class="ui negative message">
+    <div class="ui placeholder segment">
+        <div class="ui icon header">
+          <i class="dont icon"></i>
+          <div class="ui negative message">
             <div class="header">
                 Feilkode <%= faultcode %>
             </div>
             <p><%= fault %>
             </p>
         </div>
+        <div onclick="goBack()" class="ui primary button">Gå tilbake</div>
+        </div>
+
     </div>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
 </body>
 
 </html>
