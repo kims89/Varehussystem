@@ -21,3 +21,6 @@ Lykke til!
 ![image](https://raw.githubusercontent.com/kims89/Varehussystem/master/Screenshots/Screenshot%20at%20sep.%2016%2016-34-14.png)
 ![image](https://raw.githubusercontent.com/kims89/Varehussystem/master/Screenshots/Screenshot%20at%20sep.%2016%2016-34-30.png)
 ![image](https://raw.githubusercontent.com/kims89/Varehussystem/master/Screenshots/Screenshot%20at%20sep.%2016%2016-34-53.png)
+
+## Oppdatering
+1. 7. juni 2019: Oppdatert alle tillegg bortsett fra Mongodb. Oppdatert grensesnittet litt.
