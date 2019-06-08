@@ -19,12 +19,12 @@
   },
   "homepage": "https://github.com/kims89/iniVarehus#readme",
   "dependencies": {
-    "basicauth-middleware": "^3.1.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-session": "^2.0.0-beta.3",
     "ejs": "^2.6.1",
     "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0",
     "get-json": "^1.0.1",
     "helmet": "^3.18.0",
     "moment": "^2.24.0",

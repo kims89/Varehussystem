@@ -5,9 +5,10 @@ var bodyParser = require('body-parser');
 var helmet = require('helmet');
 var cookieSession = require('cookie-session');
 var moment = require('moment');
-var basicauth = require('basicauth-middleware');
-var msg = require('./config/mail.js');
+var basicAuth = require('express-basic-auth')
 
+
+var msg = require('./config/mail.js');
 var admconfig = require('./config/adminInfo.js');
 var url = admconfig.url;
 var urlPrisjakt = admconfig.productSearchAPI;
@@ -32,7 +33,13 @@ app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000
 }));
 
-app.get('/', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.use(basicAuth({
+    users: { 'someuser': 'somepassword' },
+    challenge: true,
+    realm: 'Imb4T3st4pp',
+}))
+
+app.get('/', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         db.collection(admconfig.warehousecollection).find({}).toArray(function (err, result) {
@@ -45,7 +52,7 @@ app.get('/', basicauth(admconfig.username, admconfig.password), function (req, r
     });
 });
 
-app.get('/warehouse/:warehouseid', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.get('/warehouse/:warehouseid', function (req, res) {
     var idwarehouse = req.params.warehouseid;
     if (ObjectID.isValid(req.params.warehouseid) == true) {
         MongoClient.connect(url, function (errWarehouse, dbWarehouse) {
@@ -90,7 +97,7 @@ app.get('/warehouse/:warehouseid', basicauth(admconfig.username, admconfig.passw
     }
 });
 
-app.get('/api/searchproducts/:search', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.get('/api/searchproducts/:search', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var regexp = new RegExp(req.params.search.toUpperCase());
@@ -104,7 +111,7 @@ app.get('/api/searchproducts/:search', basicauth(admconfig.username, admconfig.p
     });
 });
 
-app.get('/api/getproducts/:id', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.get('/api/getproducts/:id', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         db.collection(admconfig.productscollection).find({
@@ -117,7 +124,7 @@ app.get('/api/getproducts/:id', basicauth(admconfig.username, admconfig.password
     });
 });
 
-app.get('/api/getdelivery/:id', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.get('/api/getdelivery/:id', function (req, res) {
     var idProduct = req.params.id;
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
@@ -143,7 +150,7 @@ app.get('/api/getdelivery/:id', basicauth(admconfig.username, admconfig.password
 
 });
 
-app.get('/api/getalldeliverys/:id', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.get('/api/getalldeliverys/:id', function (req, res) {
     var idProduct = req.params.id;
     if (ObjectID.isValid(req.params.id) == true) {
         MongoClient.connect(url, function (err, db) {
@@ -205,7 +212,7 @@ app.get('/track/:id', function (req, res) {
     }
 });
 
-app.get('/api/getwarehouse/:id', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.get('/api/getwarehouse/:id', function (req, res) {
     if (ObjectID.isValid(req.params.id) == true) {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
@@ -227,7 +234,7 @@ app.get('/api/getwarehouse/:id', basicauth(admconfig.username, admconfig.passwor
 
 
 
-app.post('/api/addproducts', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/addproducts', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var obj = {
@@ -245,7 +252,7 @@ app.post('/api/addproducts', basicauth(admconfig.username, admconfig.password), 
     });
 });
 
-app.post('/api/adddelivery', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/adddelivery', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var obj = {
@@ -271,7 +278,7 @@ app.post('/api/adddelivery', basicauth(admconfig.username, admconfig.password), 
     });
 });
 
-app.post('/api/editproducts/:productid', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/editproducts/:productid', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var obj = {
@@ -293,7 +300,7 @@ app.post('/api/editproducts/:productid', basicauth(admconfig.username, admconfig
     });
 });
 
-app.post('/api/setstatusdelivery/:productid', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/setstatusdelivery/:productid', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var obj = {
@@ -312,7 +319,7 @@ app.post('/api/setstatusdelivery/:productid', basicauth(admconfig.username, admc
     });
 });
 
-app.post('/api/updatenumberproducts/:productid', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/updatenumberproducts/:productid', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var obj = {
@@ -332,7 +339,7 @@ app.post('/api/updatenumberproducts/:productid', basicauth(admconfig.username, a
 });
 
 
-app.post('/api/deletedelivery/:productid', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/deletedelivery/:productid', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         db.collection(admconfig.deliverycollection).deleteOne({
@@ -347,7 +354,7 @@ app.post('/api/deletedelivery/:productid', basicauth(admconfig.username, admconf
 });
 
 
-app.post('/api/deleteproducts/:productid', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/deleteproducts/:productid', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         db.collection(admconfig.productscollection).deleteOne({
@@ -362,7 +369,7 @@ app.post('/api/deleteproducts/:productid', basicauth(admconfig.username, admconf
 });
 
 
-app.post('/api/addwarehouse', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/addwarehouse', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var obj = {
@@ -378,7 +385,7 @@ app.post('/api/addwarehouse', basicauth(admconfig.username, admconfig.password),
     });
 });
 
-app.post('/api/editwarehouse/:warehouseid', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/editwarehouse/:warehouseid', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var obj = {
@@ -395,7 +402,7 @@ app.post('/api/editwarehouse/:warehouseid', basicauth(admconfig.username, admcon
     });
 });
 
-app.post('/api/deletewarehouse/:warehouseid', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.post('/api/deletewarehouse/:warehouseid', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         db.collection(admconfig.warehousecollection).deleteOne({
@@ -427,7 +434,7 @@ app.post('/api/deletewarehouse/:warehouseid', basicauth(admconfig.username, admc
 });
 
 
-app.get('/api/productsearchonline/:productname', basicauth(admconfig.username, admconfig.password), function (req, res) {
+app.get('/api/productsearchonline/:productname', function (req, res) {
     var product = req.params.productname;
     getJSON(urlPrisjakt + product, function (error, response) {
         MongoClient.connect(url, function (err, db) {
@@ -449,7 +456,7 @@ app.get('/api/productsearchonline/:productname', basicauth(admconfig.username, a
     });
 });
 
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 8083;
 
 app.listen(port, () => {
     console.log('Live! ' + Date())
