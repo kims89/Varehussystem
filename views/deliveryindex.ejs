@@ -11,9 +11,12 @@
   <% include deliverymeny %>
     <div class="ui main container">
       <div id="prodlist">
-        <h3 class="ui block header">
-          Utleverte varer
-        </h3>
+        <h2 class="ui header">
+          <i class="truck icon"></i>
+          <div class="content">
+            Utleverte varer
+          </div>
+        </h2>
         <div class="ui icon input">
           <input class="search " placeholder="Søk" />
           <i class="search icon"></i>
@@ -98,7 +101,7 @@
     <% include deletedeliverymodal %>
     <% include editdeliverymodal %>
       <script>
-      
+
         var options = {
           valueNames: ['number', 'productname','owner','statusDelivery', 'serienumber'],
           page: 20,
