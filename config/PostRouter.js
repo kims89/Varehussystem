@@ -3,6 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var admconfig = require('./adminInfo.js');
 var getJSON = require('get-json');
+var moment = require('moment');
 var urlPrisjakt = admconfig.productSearchAPI;
 var url = admconfig.url;
 
