@@ -9,12 +9,12 @@ var compression = require('compression');
 var admconfig = require('./config/adminInfo.js');
 var GetRouter = require('./config/GetRouter');
 var PostRouter = require('./config/PostRouter');
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 8086;
 
 moment.locale("nb");
 var app = express();
 app.use(compression({ filter: shouldCompress }))
-app.use(basicAuth( { authorizer: myAuthorizer, challenge: true, unauthorizedResponse : {message: 'Bad credentials'} } ))
+app.use(basicAuth( { authorizer: myAuthorizer, authorizeAsync: true, challenge: true, unauthorizedResponse : {message: 'Bad credentials'} } ))
 app.use(helmet());
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
@@ -42,12 +42,13 @@ app.listen(port, () => {
     console.log('Live! ' + Date())
 });
 
-function myAuthorizer(username, password) {
-    const userMatches = basicAuth.safeCompare(username, admconfig.username)
-    const passwordMatches = basicAuth.safeCompare(password, admconfig.password)
-
-    return userMatches & passwordMatches
+function myAuthorizer(username, password, cb) {
+  if (basicAuth.safeCompare(username, admconfig.username ) & basicAuth.safeCompare(password, admconfig.password ))
+  return cb(null, true)
+else
+  return cb(null, false)
 }
+
 
 function shouldCompress (req, res) {
     if (req.headers['x-no-compression']) {

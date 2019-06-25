@@ -15,7 +15,6 @@ module.exports = {
     'password' : "p",
     //Brukernavn for pålogging
     'username' : "admin",
-    'admincredentials' : {"admin":"password"},
     //Brukernavn smtp
     'mailusername' : "sporing@domene.net",
     //Passord smtp
