@@ -40,7 +40,8 @@ routerPost.post('/adddelivery', function (req, res) {
             statusDelivery: req.body.statusDelivery,
             date: moment().format("DD.MM.YYYY"),
             number: req.body.number,
-            emailAdresse: req.body.emailAdresse
+            emailAdresse: req.body.emailAdresse,
+            companyProductId : req.body.companyproductid
         };
 
         db.collection(admconfig.deliverycollection).insertOne(obj, function (err, response) {

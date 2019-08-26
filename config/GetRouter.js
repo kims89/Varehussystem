@@ -42,7 +42,8 @@ router.get('/warehouse/:warehouseid', function (req, res) {
                                   result: result,
                                   warehouseid: idwarehouse,
                                   warehousename: warehousename,
-                                  emailnotification : admconfig.emailnotification
+                                  emailnotification : admconfig.emailnotification,
+                                  companyproductid : admconfig.companyproductid
                               });
                               dbProduct.close();
                           });

@@ -24,6 +24,7 @@ module.exports = {
     //domene for varehus
     'webdomain' : "http://localhost:8080/",
     //Skal det være mulig å sende smtp meldinger til bruker/kunder. Boolean (True/False er det eneste som fungere)
-    'emailnotification' : false
+    'emailnotification' : true,
+    'companyproductid' : true
 };
 
