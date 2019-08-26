@@ -25,17 +25,22 @@
                     <option value="2">Utlevert</option>
                 </select>
             </div>
-            <div class="field">
-                <label>Antall</label>
-                <input id="numberUpdateInput" type="text">
-            </div>
             <% if(companyproductid == true){ %>
+            <div class="field disabled">
+                <label>Antall</label>
+                <input id="numberUpdateInput" value=1 type="text">
+            </div>
+
                 <div class="field">
                     <label>Utstyrsnummer</label>
                     <input id="companyproductidInput" type="text">
                 </div>
-            <% } %>
-            <% if(emailnotification == true){ %>
+            <% } else { %>
+            <div class="field">
+                <label>Antall</label>
+                <input id="numberUpdateInput" type="text">
+            </div>
+            <% } if(emailnotification == true){ %>
             <div class="field">
                 <label>Epostadresse</label>
                 <input id="mailInput" type="text">

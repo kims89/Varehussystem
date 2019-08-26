@@ -20,6 +20,12 @@ router.get('/', function (req, res) {
   });
 });
 
+router.get('/settings', function (req, res) {
+    res.render('settings', {
+        settings: admconfig
+    });
+  });
+
 router.get('/warehouse/:warehouseid', function (req, res) {
   var idwarehouse = req.params.warehouseid;
   if (ObjectID.isValid(req.params.warehouseid) == true) {
@@ -111,7 +117,8 @@ router.get('/api/getdelivery/:id', function (req, res) {
           } else {
               res.render('deliveryindex', {
                   result: result,
-                  productid: idProduct
+                  productid: idProduct,
+                  companyid: admconfig.companyproductid
               });
           }
       });
