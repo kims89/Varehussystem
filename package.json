@@ -26,7 +26,7 @@
     "express": "^4.17.1",
     "express-basic-auth": "^1.2.0",
     "get-json": "^1.0.1",
-    "helmet": "^3.20.0",
+    "helmet": "^3.20.1",
     "moment": "^2.24.0",
     "mongodb": "^2.2.36",
     "nodemailer": "^6.3.0",
