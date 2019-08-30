@@ -144,7 +144,8 @@ router.get('/api/getalldeliverys/:id', function (req, res) {
               } else {
                   res.render('deliveryindex', {
                       result: result,
-                      productid: idProduct
+                      productid: idProduct,
+                      companyid: admconfig.companyproductid
                   });
               }
           });

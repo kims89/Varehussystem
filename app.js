@@ -9,7 +9,7 @@ var compression = require('compression');
 var admconfig = require('./config/adminInfo.js');
 var GetRouter = require('./config/GetRouter');
 var PostRouter = require('./config/PostRouter');
-var port = process.env.PORT || 8086;
+var port = process.env.PORT || admconfig.portweb;
 
 moment.locale("nb");
 var app = express();
