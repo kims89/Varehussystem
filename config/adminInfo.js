@@ -26,6 +26,6 @@ module.exports = {
     //Skal det være mulig å sende smtp meldinger til bruker/kunder. Boolean (True/False er det eneste som fungere)
     'emailnotification' : false,
     'companyproductid' : true,
-    'portweb' : 8086
+    'portweb' : 8087
 };
 

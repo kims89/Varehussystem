@@ -1,5 +1,5 @@
 # Varehussystem
-Enkel varehussystem med produktoppslag og sporingsmuligheter.
+Enkel varehussystem med produktoppslag og sporingsmuligheter. Dette er utelukkende et hobbyprosjekt.
 
 ## Formål
 1. Lage et system hvor man enkelt kan legge inn varer ved hjelp av API til Prisjakt i en mongodb.
@@ -24,3 +24,4 @@ Lykke til!
 
 ## Oppdatering
 1. 7. juni 2019: Oppdatert alle tillegg bortsett fra Mongodb. Oppdatert grensesnittet litt.
+1. 31. August 2019: Pusset opp litt funksjonalitet. Lagt til mulighet å sette opp spesielle datautstyrsnr til utlevert produkt. Er også lagt til en konfigurasjonsside.

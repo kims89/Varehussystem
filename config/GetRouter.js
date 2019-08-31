@@ -4,7 +4,7 @@ var ObjectID = require('mongodb').ObjectID;
 var admconfig = require('./adminInfo.js');
 var url = admconfig.url;
 
-
+var basePath = "./backup";
 var router = app.Router()
 
 router.get('/', function (req, res) {
@@ -25,6 +25,7 @@ router.get('/settings', function (req, res) {
         settings: admconfig
     });
   });
+
 
 router.get('/warehouse/:warehouseid', function (req, res) {
   var idwarehouse = req.params.warehouseid;

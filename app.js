@@ -39,7 +39,7 @@ app.get('/session-tester', function (req, res, next) {
 
 
 app.listen(port, () => {
-    console.log('Live! ' + Date())
+    console.log('Live! on port ' + admconfig.portweb + " at " + Date())
 });
 
 function myAuthorizer(username, password, cb) {
