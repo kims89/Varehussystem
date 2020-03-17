@@ -21,18 +21,18 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
-    "cookie-session": "^2.0.0-beta.3",
-    "ejs": "^2.6.2",
+    "cookie-session": "^2.0.0-rc.1",
+    "ejs": "^2.7.4",
     "express": "^4.17.1",
     "express-basic-auth": "^1.2.0",
     "get-json": "^1.0.1",
-    "helmet": "^3.20.1",
+    "helmet": "^3.21.3",
     "moment": "^2.24.0",
     "mongodb": "^2.2.36",
-    "nodemailer": "^6.3.0",
-    "request": "^2.88.0"
+    "nodemailer": "^6.4.5",
+    "request": "^2.88.2"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.4"
   }
 }
