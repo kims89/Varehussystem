@@ -7,10 +7,7 @@ Enkel varehussystem med produktoppslag og sporingsmuligheter. Dette er utelukken
 1. La brukere følge med hvor varen befinner seg ved hjelp av enkel sporingsside.
 
 ## Installasjon
-1. [Last ned](https://github.com/kims89/Varehussystem/archive/master.zip) Varehussystemet.
-1. Installer [MongoDB](https://docs.mongodb.com/manual/installation/) (Eventuelt bruk ekstern mongodb som f.eks. Skytjenester osv) og [Node](https://nodejs.org/en/download). Det er også mulig å bruker docker (Se Dockerfile/docker-compose.yml for konfigurasjon)
-1. Legg til alle konfigurasjoner i config/adminInfo.js og eventuelt config/mail.js (Om du skal benytte SMTP)
-1. Kjør først "npm install" deretter "node app" i katalogen hvor app.js befinner seg og gå til [Localhost:8080](http://localhost:8080/). Husk og endre adminInfo.js om et domene skal benyttes.
+*Må brukes med docker*
 
 Lykke til!
 
