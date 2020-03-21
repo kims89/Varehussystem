@@ -1,7 +1,15 @@
 version: '3.2'
 services:
+  nginx:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    ports:
+      - "80:80"
+    depends_on:
+      - app
   app:
-    container_name: Varehussystem
     restart: always
     environment:
       - ADM_PASSWORD=Blaa
@@ -13,9 +21,12 @@ services:
       - EMAILNOTIFICATION=true
       - PRODUCTID=true
       - WEBPORT=8087
+      - VIRTUAL_HOST=docker.inity.no
     build: .
     ports:
-      - '8087:8087'
+      - 8087-8097:8087
+    expose:
+      - 8087
     links:
       - mongo
   mongo:
