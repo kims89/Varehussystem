@@ -1,8 +1,18 @@
-version: '3'
+version: '3.2'
 services:
   app:
     container_name: Varehussystem
     restart: always
+    environment:
+      - ADM_PASSWORD=Blaa
+      - ADM_USERNAME=Blaa
+      - MAILUSERNAME=example@mail.no
+      - MAILUSERPASSWORD=Pa$$w0rd
+      - SMTP=smtp.example.no
+      - DOMAIN=localhost
+      - EMAILNOTIFICATION=true
+      - PRODUCTID=true
+      - WEBPORT=8087
     build: .
     ports:
       - '8087:8087'
@@ -13,3 +23,5 @@ services:
     image: mongo
     ports:
       - '27017:27017'
+    volumes:
+      - ~/data:/data/db

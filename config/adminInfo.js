@@ -12,20 +12,20 @@ module.exports = {
     //Mongodb collection for delivery
     'deliverycollection' : " delivery",
     //Passord for pålogging
-    'password' : "p",
+    'password' : process.env.ADM_PASSWORD,
     //Brukernavn for pålogging
-    'username' : "admin",
+    'username' : process.env.ADM_USERNAME,
     //Brukernavn smtp
-    'mailusername' : "sporing@domene.net",
+    'mailusername' : process.env.MAILUSERNAME,
     //Passord smtp
-    'mailpassword' : "pa$$w0rd",
+    'mailpassword' : process.env.MAILUSERPASSWORD,
     //servernavn smtp
-    'mailhost' : "smtp.domain.com",
+    'mailhost' : process.env.SMTP,
     //domene for varehus
-    'webdomain' : "http://localhost:8080/",
+    'webdomain' : process.env.DOMAIN,
     //Skal det være mulig å sende smtp meldinger til bruker/kunder. Boolean (True/False er det eneste som fungere)
-    'emailnotification' : false,
-    'companyproductid' : true,
-    'portweb' : 8087
+    'emailnotification' : process.env.EMAILNOTIFICATION,
+    'companyproductid' : process.env.PRODUCTID,
+    'portweb' : process.env.WEBPORT
 };
 

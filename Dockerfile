@@ -10,4 +10,6 @@ COPY . .
 
 EXPOSE 8087
 
+#CMD ["/bin/sh", "-c", "envsubst < ./config/adminInfo.js"]
+
 cmd ["npm", "start"]
