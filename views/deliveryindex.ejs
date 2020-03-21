@@ -21,11 +21,11 @@
           <input class="search " placeholder="Søk" />
           <i class="search icon"></i>
         </div>
-        <table class="ui stackable celled red table">
+        <table class="ui stackable celled definition red table">
           <thead>
             <tr>
               <th>
-                <a class="sort" data-sort="date">Dato</a>
+                <a class="sort" data-sort="date"></a>
               </th>
               <th>
                 <a class="sort" href="#" data-sort="productname">Produktnavn</a>
@@ -63,7 +63,7 @@
                   <%= result[i].productname %>
                 </td>
                 <td class="number">
-                  <%= result[i].number %>
+                    <a class="ui blue circular label"><%= result[i].number %></a>
                 </td>
                 <td class="owner">
                   <%= result[i].owner %>
