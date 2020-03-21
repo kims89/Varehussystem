@@ -8,7 +8,7 @@ var urlPrisjakt = admconfig.productSearchAPI;
 var url = admconfig.url;
 
 
-var routerPost = app.Router()
+var routerPost = app.Router();
 
 routerPost.post('/addproducts', function (req, res) {
     MongoClient.connect(url, function (err, db) {
