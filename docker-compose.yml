@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app:
+    container_name: Varehussystem
+    restart: always
+    build: .
+    ports:
+      - '8087:8087'
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'

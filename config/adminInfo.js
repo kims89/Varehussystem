@@ -1,8 +1,8 @@
 module.exports = {
     //Mongodb
-    'url' : 'mongodb://localhost:27017/inityvarehus',
+    'url' : 'mongodb://mongo:27017/inityvarehus',
     //Mongodb readonly
-    'readonlyurl' : 'mongodb://localhost:27017/inityvarehus',
+    'readonlyurl' : 'mongodb://mongo:27017/inityvarehus',
     //API for prisjakt. Ikke endre dette om du ikke vet hva du gjør.
     'productSearchAPI' : "https://www.prisjakt.no/ajax/server.php?class=Search_Supersearch&method=search&skip_login=1&modes=product&limit=20&q=",
     //Mongodb collection for products
