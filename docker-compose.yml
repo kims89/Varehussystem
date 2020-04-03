@@ -25,6 +25,8 @@ services:
     build: .
     ports:
       - 8087-8097:8087
+    depends_on:
+      - mongo  
     expose:
       - 8087
     links:
@@ -35,4 +37,10 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - ~/data:/data/db
+#       - ./data:/data/db
+#       - mongo_storage:/data
+        - ~/data:/data/db
+# docker volume create --name mongo_storage
+volumes:
+  mongo_storage:
+    external: true
