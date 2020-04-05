@@ -37,10 +37,15 @@ services:
     ports:
       - '27017:27017'
     volumes:
-#       - ./data:/data/db
-#       - mongo_storage:/data
-        - ~/data:/data/db
-# docker volume create --name mongo_storage
+      - mongo_storage:/data/db
+
 volumes:
   mongo_storage:
     external: true
+
+
+# Create multiply docker-compose up -d --scale app=1-10
+# default docker-compose up -d 
+# Stop docker-compose stop
+# Stop and Remove DB docker-compose down -v
+# Remove docker-compose rm
