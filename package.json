@@ -29,7 +29,7 @@
     "helmet": "^3.22.0",
     "moment": "^2.26.0",
     "mongodb": "^2.2.36",
-    "nodemailer": "^6.4.8",
+    "nodemailer": "^6.4.16",
     "request": "^2.88.2"
   },
   "devDependencies": {
